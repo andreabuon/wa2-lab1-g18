@@ -1,4 +1,4 @@
-package org.example
+package org.example.util
 
 import java.io.File
 
@@ -17,15 +17,14 @@ fun readCsv(path: String): List<List<String>> {
     return list
 }
 
-
 /**
  * Reads a YAML file and returns a map of strings to any.
  * @param path the path to the YAML file
  * @return a map of strings to any
  */
-fun readYaml(path: String): Map<String, Any?> {
+fun readYaml(path: String): Map<String, String> {
     val file = File(path)
-    val map = mutableMapOf<String, Any>()
+    val map = mutableMapOf<String, String>()
     file.forEachLine { line ->
         val row = line.split(":")
         map[row[0]] = row[1]
