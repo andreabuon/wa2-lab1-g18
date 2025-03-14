@@ -8,20 +8,20 @@ fun main() {
     // read the waypoints
     val waypointList = mutableListOf<Waypoint>()
 
-    val csvLineList = readCsv("../evaluation/waypoints.csv")
+    val csvLineList = readCsv("./evaluation/waypoints.csv")
     csvLineList.forEach { row: List<String> ->
         waypointList.add(Waypoint(row[0].toDouble().toInt(), row[1].toDouble(), row[2].toDouble()))
     }
 
     // read the parameters
-    val parameterMap = readYaml("../evaluation/custom-parameters.yml")
+    val parameterMap = readYaml("./evaluation/custom-parameters.yml")
     val geofenceWaypoint = Waypoint(
         0,
         parameterMap.getValue("geofenceCenterLatitude").toDouble(),
         parameterMap.getValue("geofenceCenterLongitude").toDouble()
     )
-    val geofenceRadius = parameterMap.getValue("geofenceRadius").toDouble()
-    val earthRadius = parameterMap.getValue("earthRadius").toDouble()
+    val geofenceRadius = parameterMap.getValue("geofenceRadiusKm").toDouble()
+    val earthRadius = parameterMap.getValue("earthRadiusKm").toDouble()
 
     val mostFrequentedAreaRadiusTemp = parameterMap.get("mostFrequentedAreaRadius")
 
