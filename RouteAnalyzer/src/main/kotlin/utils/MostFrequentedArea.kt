@@ -3,7 +3,11 @@ package org.example.utils
 import org.example.models.Waypoint
 import org.example.models.Parameters
 
-
+/**
+ * Returns the most frequented area.
+ * @param waypointList the list of waypoints
+ * @return a pair containing the central waypoint of the most frequented area and the number of entries in the area
+ */
 fun findMostFrequentedArea(waypointList: List<Waypoint>): Pair<Waypoint, Int> {
     if (waypointList.isEmpty()) {
         throw Exception("Waypoint list is empty.")
