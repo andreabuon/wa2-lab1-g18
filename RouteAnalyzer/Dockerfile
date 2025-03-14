@@ -1,5 +1,3 @@
-LABEL authors="g-18"
-
 FROM eclipse-temurin:23 AS builder
 WORKDIR ./app
 COPY ./ ./
@@ -9,9 +7,8 @@ RUN ./gradlew --no-daemon shadowJar
 
 
 # Use a smaller base image
-FROM eclipse-temurin:23-jre-noble
-COPY --from=BUILD /build/libs/* /bin/runner/run.jar
-COPY ../evaluation/ /bin/runner/evaluation/
+FROM eclipse-temurin:23-jre
+COPY --from=builder ./app/build/libs/* /bin/runner/run.jar
 
 # Run the application
 CMD ["java", "-jar", "/bin/runner/run.jar"]
