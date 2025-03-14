@@ -21,6 +21,6 @@ object Parameters {
             earthRadiusKm = initEarthRadiusKm.toDouble()
             geofenceRadiusKm = initGeoFenceRadiusKm.toDouble()
         }
-        mostFrequentedAreaRadius = yaml["mostFrequentedAreaRadius"]?.toDouble()
+        mostFrequentedAreaRadius = yaml["mostFrequentedAreaRadiusKm"]?.toDouble()
     }
 }

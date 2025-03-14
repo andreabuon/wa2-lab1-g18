@@ -8,7 +8,7 @@ import org.example.models.Waypoint
  * @param waypoints the list of waypoints
  * @return the farthest waypoint from the start and their distance
  */
-fun findMaxDistanceFromStart(waypoints: List<Waypoint>): Map<String, Any> {
+fun findMaxDistanceFromStart(waypoints: List<Waypoint>): Pair<Waypoint, Double> {
     val start = waypoints.first()
     var maxDistance = Double.MIN_VALUE
     var farthestWaypoints = waypoints.first()
@@ -20,8 +20,5 @@ fun findMaxDistanceFromStart(waypoints: List<Waypoint>): Map<String, Any> {
             farthestWaypoints = waypoint
         }
     }
-    return mapOf(
-        "waypoint" to farthestWaypoints,
-        "distanceKm" to maxDistance
-    )
+    return Pair(farthestWaypoints, maxDistance)
 }

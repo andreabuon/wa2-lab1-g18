@@ -4,14 +4,14 @@ import org.example.models.Waypoint
 import org.example.models.Parameters
 
 
-fun findMostFrequentedArea(waypointList: List<Waypoint>): Map<String, Any> {
+fun findMostFrequentedArea(waypointList: List<Waypoint>): Pair<Waypoint, Int> {
     if (waypointList.isEmpty()) {
         throw Exception("Waypoint list is empty.")
     }
 
     var areaRadiusKm = Parameters.mostFrequentedAreaRadius
     if (areaRadiusKm == null) {
-        val maxDistance = findMaxDistanceFromStart(waypointList)["distanceKm"]?.toString()?.toDoubleOrNull() ?: 0.0
+        val maxDistance = findMaxDistanceFromStart(waypointList).second
         areaRadiusKm = when {
             (maxDistance < 1.0) -> 0.1
             else -> maxDistance / 10
@@ -34,7 +34,7 @@ fun findMostFrequentedArea(waypointList: List<Waypoint>): Map<String, Any> {
                     waypoint2.longitude
                 ) < areaRadiusKm
             ) {
-                neighboursCount++
+                neighboursCount += 1
             }
 
         }
@@ -44,9 +44,5 @@ fun findMostFrequentedArea(waypointList: List<Waypoint>): Map<String, Any> {
         }
     }
 
-    return mapOf(
-        "center_waypoint" to centerWaypoint,
-        "areaRadiusKm" to areaRadiusKm,
-        "entriesCount" to centerWaypointNeighboursCount
-    )
+    return Pair(centerWaypoint, centerWaypointNeighboursCount)
 }
