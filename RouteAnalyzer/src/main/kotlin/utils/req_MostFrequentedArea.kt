@@ -1,17 +1,17 @@
-package org.example.util
+package org.example.utils
 
-import org.example.model.Waypoint
+import org.example.models.Waypoint
+import org.example.models.Parameters
 
-fun findMostFrequentedArea(waypointList: List<Waypoint>, areaRadiusKm: Double?): Pair<Waypoint, Int> {
+
+fun findMostFrequentedArea(waypointList: List<Waypoint>): Pair<Waypoint, Int> {
     if (waypointList.isEmpty()) {
         throw Exception("Waypoint list is empty.")
     }
 
-    val earthRadius = 6371.0 //FIXME
-
-    var areaRadiusKm = areaRadiusKm
+    var areaRadiusKm = Parameters.mostFrequentedAreaRadius
     if (areaRadiusKm == null) {
-        val max_distance = findMaxDistanceFromStart(waypointList, earthRadius).second
+        val max_distance = findMaxDistanceFromStart(waypointList).second
         areaRadiusKm = when {
             (max_distance < 1.0) -> 0.1
             else -> max_distance / 10
@@ -27,12 +27,18 @@ fun findMostFrequentedArea(waypointList: List<Waypoint>, areaRadiusKm: Double?):
             if (waypoint2.equals(waypoint1))
                 continue
 
-            if (haversine( waypoint1.latitude, waypoint1.longitude, waypoint2.latitude, waypoint2.longitude, earthRadius) < areaRadiusKm) {
+            if (haversine(
+                    waypoint1.latitude,
+                    waypoint1.longitude,
+                    waypoint2.latitude,
+                    waypoint2.longitude
+                ) < areaRadiusKm
+            ) {
                 neighbours_count += 1
             }
 
         }
-        if(neighbours_count > center_waypoint_neighbours_count) {
+        if (neighbours_count > center_waypoint_neighbours_count) {
             center_waypoint = waypoint1
             center_waypoint_neighbours_count = neighbours_count
         }

@@ -1,4 +1,4 @@
-package org.example.model
+package org.example.models
 
 /**
  * Represents a waypoint with a timestamp, latitude, and longitude.
@@ -6,4 +6,4 @@ package org.example.model
  * @property latitude the latitude of the waypoint
  * @property longitude the longitude of the waypoint
  */
-public data class Waypoint(val timestamp: Int, val latitude: Double, val longitude: Double)
+data class Waypoint(val timestamp: Int, val latitude: Double, val longitude: Double)
