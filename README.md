@@ -10,14 +10,14 @@ various statistics.
 ### Running with docker
 You need to have docker installed on your machine. Then simply run 
 ```bash
-   docker build -t 'image_name' .
+docker build -t 'image_name' .
 ```
 
 ###
 ### Running the application
 To run the program you need to pass the path to the evaluation folder containing `waypoints.csv` and `custom-parameters.yml`
 ```bash
-   docker run -v "localpath/evaluation/":/app/evaluation/ "image_name"
+docker run -v "localpath/evaluation/":/app/evaluation/ "image_name"
 ```
 Replace `localpath` with the path to the evaluation folder on your machine.
 
