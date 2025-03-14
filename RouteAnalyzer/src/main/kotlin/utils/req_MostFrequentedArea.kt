@@ -4,27 +4,27 @@ import org.example.models.Waypoint
 import org.example.models.Parameters
 
 
-fun findMostFrequentedArea(waypointList: List<Waypoint>): Pair<Waypoint, Int> {
+fun findMostFrequentedArea(waypointList: List<Waypoint>): Map<String, Any> {
     if (waypointList.isEmpty()) {
         throw Exception("Waypoint list is empty.")
     }
 
     var areaRadiusKm = Parameters.mostFrequentedAreaRadius
     if (areaRadiusKm == null) {
-        val max_distance = findMaxDistanceFromStart(waypointList).second
+        val maxDistance = findMaxDistanceFromStart(waypointList)["distanceKm"]?.toString()?.toDoubleOrNull() ?: 0.0
         areaRadiusKm = when {
-            (max_distance < 1.0) -> 0.1
-            else -> max_distance / 10
+            (maxDistance < 1.0) -> 0.1
+            else -> maxDistance / 10
         }
     }
 
-    var center_waypoint = waypointList[0]
-    var center_waypoint_neighbours_count = 0
+    var centerWaypoint = waypointList[0]
+    var centerWaypointNeighboursCount = 0
     for (waypoint1 in waypointList) {
-        var neighbours_count = 0
+        var neighboursCount = 0
 
         for (waypoint2 in waypointList) {
-            if (waypoint2.equals(waypoint1))
+            if (waypoint2 == waypoint1)
                 continue
 
             if (haversine(
@@ -34,15 +34,19 @@ fun findMostFrequentedArea(waypointList: List<Waypoint>): Pair<Waypoint, Int> {
                     waypoint2.longitude
                 ) < areaRadiusKm
             ) {
-                neighbours_count += 1
+                neighboursCount++
             }
 
         }
-        if (neighbours_count > center_waypoint_neighbours_count) {
-            center_waypoint = waypoint1
-            center_waypoint_neighbours_count = neighbours_count
+        if (neighboursCount > centerWaypointNeighboursCount) {
+            centerWaypoint = waypoint1
+            centerWaypointNeighboursCount = neighboursCount
         }
     }
 
-    return Pair(center_waypoint, center_waypoint_neighbours_count)
+    return mapOf(
+        "center_waypoint" to centerWaypoint,
+        "areaRadiusKm" to areaRadiusKm,
+        "entriesCount" to centerWaypointNeighboursCount
+    )
 }

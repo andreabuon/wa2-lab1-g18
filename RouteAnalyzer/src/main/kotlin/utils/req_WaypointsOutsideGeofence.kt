@@ -10,7 +10,7 @@ import org.example.models.Parameters
  */
 fun findWaypointsOutsideGeofence(
     waypoints: List<Waypoint>
-): List<Waypoint> {
+): Map<String, Any> {
     val outsideGeofence = mutableListOf<Waypoint>()
     for (waypoint in waypoints) {
         val distance = haversine(
@@ -23,5 +23,10 @@ fun findWaypointsOutsideGeofence(
             outsideGeofence.add(waypoint)
         }
     }
-    return outsideGeofence
+    return mapOf(
+        "centralWaypoint" to Parameters.geofenceWaypoint,
+        "areaRadiusKm" to Parameters.geofenceRadiusKm,
+        "count" to outsideGeofence.size,
+        "waypoints" to outsideGeofence
+    )
 }

@@ -1,8 +1,10 @@
 package org.example
 
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.example.models.Waypoint
-import org.example.models.Parameters
 import org.example.utils.*
+import java.io.File
 
 fun main() {
 
@@ -18,7 +20,21 @@ fun main() {
     val mostFrequentedArea = findMostFrequentedArea(waypointList)
     val waypointsOutsideGeofence = findWaypointsOutsideGeofence(waypointList)
 
-    // TODO JSON output
+
+    val mapper = jacksonObjectMapper()
+    mapper.enable(SerializationFeature.INDENT_OUTPUT)
+
+    val outputJSON = mapOf(
+        "maxDistanceFromStart" to maxDistanceFromStart,
+        "mostFrequentedArea" to mostFrequentedArea,
+        "waypointsOutsideGeofence" to waypointsOutsideGeofence
+    )
+
+
+    mapper.writer().writeValue(File("./evaluation/output.json"), outputJSON)
+
+
+
 }
 
 
