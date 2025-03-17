@@ -27,6 +27,12 @@ tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+tasks.shadowJar {
+    archiveBaseName = "app"
+    archiveClassifier = ""
+    archiveVersion = ""
+}
+
 tasks.test {
     useJUnitPlatform()
 }

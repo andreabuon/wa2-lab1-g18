@@ -3,23 +3,25 @@
 
 ## RouteAnalyzer
 
-A kotlin programs that reads a file containing a list of routes and compute 
-various statistics.
-
-###
-### Running with docker
-You need to have docker installed on your machine. Then simply run 
-```bash
-docker build -t 'image_name' .
-```
+A Kotlin application that computes various statistics given a route and some input parameters.
 
 ###
 ### Running the application
-To run the program you need to pass the path to the evaluation folder containing `waypoints.csv` and `custom-parameters.yml`
+You need to have docker installed on your machine.
+Then, from the repository root, build the application with the following command: 
 ```bash
-docker run -v "localpath/evaluation/":/app/evaluation/ "image_name"
+docker build -t 'image_name' ./RouteAnalyzer
 ```
-Replace `localpath` with the path to the evaluation folder on your machine.
 
-<u>**Note: `localpath` MUST be an absolute path.**</u>
-An easy way to get the absolute path is to navigate to the folder in terminal and use the `$(pwd)` variable.
+The application expects you to mount the folder containing `waypoints.csv` and `custom-parameters.yml` to a specific mount point. Inside the same directory the output file will be created. 
+```bash
+docker run -v {input_output_path}:/app/evaluation image_name
+```
+Replace `{input_output_path}` with your own. To use the provided example `evaluation` folder:
+```bash
+docker run -v ./evaluation:/app/evaluation image_name
+```
+
+## RouteGenerator
+
+A React application that allows you to calculate and download routes given a set of geographical points (latitude, longitude), using OpenRouteService.
