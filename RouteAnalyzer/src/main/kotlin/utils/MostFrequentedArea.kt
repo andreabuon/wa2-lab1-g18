@@ -31,14 +31,8 @@ fun findMostFrequentedArea(waypointList: List<Waypoint>): Pair<Waypoint, Int> {
             if (waypoint2 == waypoint1)
                 continue
 
-            if (haversine(
-                    waypoint1.latitude,
-                    waypoint1.longitude,
-                    waypoint2.latitude,
-                    waypoint2.longitude
-                ) < areaRadiusKm
-            ) {
-                neighboursCount += 1
+            if (haversine(waypoint1, waypoint2) < areaRadiusKm) {
+                neighboursCount++
             }
 
         }

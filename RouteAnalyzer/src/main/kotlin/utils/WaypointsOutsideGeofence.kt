@@ -14,10 +14,7 @@ fun findWaypointsOutsideGeofence(
     val outsideGeofence = mutableListOf<Waypoint>()
     for (waypoint in waypoints) {
         val distance = haversine(
-            Parameters.geofenceWaypoint.latitude,
-            Parameters.geofenceWaypoint.longitude,
-            waypoint.latitude,
-            waypoint.longitude
+            Parameters.geofenceWaypoint, waypoint
         )
         if (distance > Parameters.geofenceRadiusKm) {
             outsideGeofence.add(waypoint)

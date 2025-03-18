@@ -14,8 +14,9 @@ fun main() {
 
     val csvLineList = readCsv("./evaluation/waypoints.csv")
     csvLineList.forEach { row: List<String> ->
-        waypointList.add(Waypoint(row[0].toDouble().toInt(), row[1].toDouble(), row[2].toDouble()))
+        waypointList.add(Waypoint(row[0].toDouble(), row[1].toDouble(), row[2].toDouble()))
     }
+
 
     val maxDistanceFromStart = findMaxDistanceFromStart(waypointList)
     val mostFrequentedArea = findMostFrequentedArea(waypointList)
@@ -27,15 +28,12 @@ fun main() {
 
     val outputJSON = mapOf(
         "maxDistanceFromStart" to mapOf(
-            "waypoint" to maxDistanceFromStart.first,
-            "distanceKm" to maxDistanceFromStart.second
-        ),
-        "mostFrequentedArea" to mapOf(
+            "waypoint" to maxDistanceFromStart.first, "distanceKm" to maxDistanceFromStart.second
+        ), "mostFrequentedArea" to mapOf(
             "centralWaypoint" to mostFrequentedArea.first,
             "areaRadiusKm" to Parameters.mostFrequentedAreaRadius,
             "entriesCount" to mostFrequentedArea.second
-        ),
-        "waypointsOutsideGeofence" to mapOf(
+        ), "waypointsOutsideGeofence" to mapOf(
             "centralWaypoint" to Parameters.geofenceWaypoint,
             "areaRadiusKm" to Parameters.geofenceRadiusKm,
             "count" to waypointsOutsideGeofence.size,
@@ -44,6 +42,31 @@ fun main() {
     )
 
     mapper.writer().writeValue(File("./evaluation/output.json"), outputJSON)
+
+
+    val averageSpeed = averageSpeed(waypointList)
+
+    val overallMovementDirections = getCardinalDirection(waypointList.first(), waypointList.last())
+    val detailedMovementDirections = mutableListOf<String>()
+    waypointList.zipWithNext().forEach { (waypoint1, waypoint2) ->
+        detailedMovementDirections.add(getCardinalDirection(waypoint1, waypoint2))
+    }
+
+
+    val advancedOutputJSON = mapOf(
+        "averageSpeed" to mapOf(
+            "distanceKm" to averageSpeed.first, "time" to averageSpeed.second, "speedKm/h" to averageSpeed.third
+        ), "movementDirection" to mapOf(
+            "overall" to overallMovementDirections,
+            "detailed" to detailedMovementDirections
+        )
+    )
+
+    mapper.writer().writeValue(
+        File(
+            "./evaluation/output_advanced.json"
+        ), advancedOutputJSON
+    )
 }
 
 
