@@ -17,7 +17,7 @@ object Parameters {
         if (lat.isNullOrEmpty() || long.isNullOrEmpty() || initEarthRadiusKm.isNullOrEmpty() || initGeoFenceRadiusKm.isNullOrEmpty()) {
             throw Exception("Invalid custom-parameters.yml file.")
         } else {
-            geofenceWaypoint = Waypoint(0, lat.toDouble(), long.toDouble())
+            geofenceWaypoint = Waypoint(0.0, lat.toDouble(), long.toDouble())
             earthRadiusKm = initEarthRadiusKm.toDouble()
             geofenceRadiusKm = initGeoFenceRadiusKm.toDouble()
         }

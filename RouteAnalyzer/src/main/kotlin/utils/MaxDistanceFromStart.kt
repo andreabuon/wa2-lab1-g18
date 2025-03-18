@@ -14,7 +14,7 @@ fun findMaxDistanceFromStart(waypoints: List<Waypoint>): Pair<Waypoint, Double> 
     var farthestWaypoints = waypoints.first()
     for (waypoint in waypoints.drop(1)) {
         val distance =
-            haversine(start.latitude, start.longitude, waypoint.latitude, waypoint.latitude)
+            haversine(start, waypoint)
         if (distance > maxDistance) {
             maxDistance = distance
             farthestWaypoints = waypoint

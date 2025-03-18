@@ -6,4 +6,4 @@ package org.example.models
  * @property latitude the latitude of the waypoint
  * @property longitude the longitude of the waypoint
  */
-data class Waypoint(val timestamp: Int, val latitude: Double, val longitude: Double)
+data class Waypoint(val timestamp: Double, val latitude: Double, val longitude: Double)
