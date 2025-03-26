@@ -16,12 +16,9 @@ fun findMostFrequentedArea(waypointList: List<Waypoint>): Pair<Waypoint, Int> {
     var areaRadiusKm = Parameters.mostFrequentedAreaRadius
     if (areaRadiusKm == null) {
         val maxDistance = findMaxDistanceFromStart(waypointList).second
-        areaRadiusKm = when {
-            (maxDistance < 1.0) -> 0.1
-            else -> maxDistance / 10
-        }
+        areaRadiusKm = maxDistance/10
+        Parameters.mostFrequentedAreaRadius = areaRadiusKm
     }
-
     var centerWaypoint = waypointList[0]
     var centerWaypointNeighboursCount = 0
     for (waypoint1 in waypointList) {

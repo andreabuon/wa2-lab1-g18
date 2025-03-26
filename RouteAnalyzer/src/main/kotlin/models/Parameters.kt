@@ -5,7 +5,7 @@ import org.example.utils.readYaml
 object Parameters {
     private val yaml = readYaml("./evaluation/custom-parameters.yml")
     val earthRadiusKm: Double
-    val mostFrequentedAreaRadius: Double?
+    var mostFrequentedAreaRadius: Double?
     val geofenceWaypoint: Waypoint
     val geofenceRadiusKm: Double
 
@@ -22,5 +22,6 @@ object Parameters {
             geofenceRadiusKm = initGeoFenceRadiusKm.toDouble()
         }
         mostFrequentedAreaRadius = yaml["mostFrequentedAreaRadiusKm"]?.toDouble()
+
     }
 }
