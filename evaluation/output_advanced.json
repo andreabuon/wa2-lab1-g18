@@ -1,0 +1,11 @@
+{
+  "averageSpeed" : {
+    "distanceKm" : 7.856371424953475,
+    "time" : 0.32162333170572915,
+    "speedKm/h" : 24.427243456770423
+  },
+  "movementDirection" : {
+    "overall" : "S",
+    "detailed" : [ "SE", "SE", "NE", "N", "S", "W", "SW", "SW", "SW", "SW", "S" ]
+  }
+}
